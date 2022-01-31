@@ -1,2 +1,8 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<!-- src/routes/index.svelte -->
+<svelte:head>
+	<title>OK Arcadia: Welcome!</title>
+</svelte:head>
+
+<h1>Welcome to OK Arcadia!</h1>
+
+<p>Visit our <a href="lab/">LAB</a>!</p>
