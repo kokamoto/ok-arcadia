@@ -5,4 +5,4 @@
 
 <h1>Welcome to OK Arcadia!</h1>
 
-<p>Visit our <a href="lab/">LAB</a>!</p>
+<p>Visit our <a href="lab/">the LAB</a>!</p>
