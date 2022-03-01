@@ -3,5 +3,5 @@
   export let title;
 </script>
 
-<h1 class="experiment">{title}</h1>
+<h1 class="title experiment">{title}</h1>
 <slot></slot>

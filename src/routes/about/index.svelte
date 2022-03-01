@@ -2,4 +2,4 @@
 	<title>OK Arcadia: About</title>
 </svelte:head>
 
-<h1>About</h1>
+<h1 class="title">About</h1>
