@@ -2,7 +2,7 @@ describe('Home Page', () => {
 
   it('should show a welcome message', () => {
     cy.visit('http://localhost:3000');
-    cy.get('h1').should('contain', 'Welcome to OK Arcadia');
+    cy.get('.title').should('contain', 'Welcome to OK Arcadia');
   });
 
   it('should provide navigation to the Lab page', () => {
@@ -17,4 +17,9 @@ describe('Home Page', () => {
      cy.url().should('contain', '/about');
   });
 
+  it('should provide navigation to the Dojang page', () => {
+    cy.visit('http://localhost:3000');
+    cy.contains('DOJANG').click();
+    cy.url().should('contain', '/dojang');
+ });
 });
