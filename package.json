@@ -57,5 +57,8 @@
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
     ]
+  },
+  "dependencies": {
+    "node-xlsx": "^0.21.0"
   }
 }
