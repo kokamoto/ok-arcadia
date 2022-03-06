@@ -23,6 +23,12 @@ describe('The Dojang Page', () => {
     cy.contains('Recognized Poomsae').should('be.visible');
   });
 
+  it('should have a list of top Female Cadet competitors', () => {
+    cy.visit('/dojang/poomsae-rankings/usa');
+    cy.contains('Female Cadet').should('be.visible');
+    cy.get('[id="rp-female-cadet"]').should('be.visible');
+  });
+
   it('should have a Freestyle Poomsae section in the USA Taekwondo Poomsae Rankings page', () => {
     cy.visit('/dojang/poomsae-rankings/usa');
     cy.contains('Freestyle Poomsae').should('be.visible');
