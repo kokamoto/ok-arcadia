@@ -2,33 +2,19 @@
 	<title>OK Arcadia: The Dojang</title>
 </svelte:head>
 
-<script>
-	  import RankingListItem from '../../../lib/components/app/dojang/RankingListItem.svelte';
-	  let competitors = [{
-			division: "Cadet",
-			belt: "Black",
-			name: "Cadet One",
-			gender: "Female",
-			totalpoints: 1234
-		}, {
-			division: "Cadet",
-			belt: "Black",
-			name: "Cadet Two",
-			gender: "Female",
-			totalpoints: 1001
-		}, {
-			division: "Cadet",
-			belt: "Black",
-			name: "Cadet Three",
-			gender: "Female",
-			totalpoints: 923
-		}, {
-			division: "Cadet",
-			belt: "Black",
-			name: "Cadet One-Hundred",
-			gender: "Female",
-			totalpoints: 23
-		}]
+<script lang="ts">
+	import RankingListItem from '../../../lib/components/app/dojang/RankingListItem.svelte';
+	import { CompetitorRank, DataSourceManager } from './store';
+	import type { Readable } from "svelte/store";
+  import { onMount } from 'svelte';
+
+	const manager:DataSourceManager<CompetitorRank> = new DataSourceManager<CompetitorRank>();
+	const competitors:Readable<CompetitorRank[]> = manager.getStore();
+
+	onMount(async () => {
+		manager.fetch();
+	});
+	
 </script>
 
 <h1 class="title">The US National Poomsae Rankings</h1>
@@ -39,7 +25,7 @@
 
 		<h3>Female Cadet</h3>
 		<div id="rp-female-cadet">
-			{#each competitors as competitor, i}
+			{#each $competitors as competitor, i}
 			<RankingListItem rank="{i + 1}" name="{competitor.name}" points="{competitor.totalpoints}"/>
 			{/each}
 		</div>
