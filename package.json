@@ -61,6 +61,7 @@
     ]
   },
   "dependencies": {
-    "node-xlsx": "^0.21.0"
+    "node-xlsx": "^0.21.0",
+    "rxjs": "^7.5.5"
   }
 }

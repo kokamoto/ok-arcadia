@@ -1,5 +1,6 @@
 import { writable, derived } from "svelte/store"
 import type { Readable, Writable } from "svelte/store";
+import { Observable, of } from "rxjs";
 
 export type Sort = {
   field: string;
@@ -22,6 +23,19 @@ export type DataSourceState = {
 export abstract class DataSource<T> {
   state: DataSourceState;
   abstract fetchData(): void;
+}
+
+export class ArrayDataSource<T> extends DataSource<T> {
+  data: T[];
+
+  constructor(data: T[]) {
+    super();
+    this.data = data;
+  }
+
+  fetchData(): Observable<T[]> {
+    return of(this.data);
+  }
 }
 
 export class DataSourceManager<T> {
