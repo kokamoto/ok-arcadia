@@ -14,15 +14,20 @@ export type SimpleFilter = {
 
 export type Filter = SimpleFilter;
 
+export type DataQuery = {
+  keyword?: string;
+  sortBy?: Sort;
+};
+
 export type DataSourceState = {
   keyword: string;
-  sortBy: Sort[];
+  sortBy: Sort;
   filterBy: Filter[];
-}; 
+};
 
 export abstract class DataSource<T> {
   state: DataSourceState;
-  abstract fetchData(): void;
+  abstract fetchData(query?: DataQuery): void;
 }
 
 export class ArrayDataSource<T> extends DataSource<T> {
@@ -33,8 +38,29 @@ export class ArrayDataSource<T> extends DataSource<T> {
     this.data = data;
   }
 
-  fetchData(): Observable<T[]> {
-    return of(this.data);
+  fetchData(query?: DataQuery): Observable<T[]> {
+    let data = this.data;
+    if (query && query.sortBy) {
+      data = this._sort(data, query);
+    }
+    return of(data);
+  }
+
+  _sort(data: T[], query: DataQuery): T[] {
+    if (query.sortBy) {
+      const field: string = query.sortBy.field;
+      const dir: number = (query.sortBy.dir === 'desc') ? -1 : 1;
+      return data.sort((a: T, b: T) => {
+        if (a[field] < b[field]) {
+          return -1 * dir;
+        }
+        if (a[field] > b[field]) {
+          return 1 * dir;
+        }
+        return 0;
+      });
+    }
+    return data;
   }
 }
 
