@@ -1,6 +1,6 @@
 import { writable, derived } from "svelte/store"
 import type { Readable, Writable } from "svelte/store";
-import { Observable, of } from "rxjs";
+import { ignoreElements, Observable, of } from "rxjs";
 
 export type Sort = {
   field: string;
@@ -17,6 +17,8 @@ export type Filter = SimpleFilter;
 export type DataQuery = {
   keyword?: string;
   sortBy?: Sort;
+  top?: number;
+  skip?: number;
 };
 
 export type DataSourceState = {
@@ -39,9 +41,17 @@ export class ArrayDataSource<T> extends DataSource<T> {
   }
 
   fetchData(query?: DataQuery): Observable<T[]> {
-    let data = this.data;
-    if (query && query.sortBy) {
+    let data = this.data.slice();
+    if (!query) {
+      return of(data);
+    }
+    if (query.sortBy) {
       data = this._sort(data, query);
+    }
+    if (query.top || query.skip) {
+      const start = query.skip || 0;
+      const end = (query.top) ? start + query.top : data.length;
+      data = data.slice(start, end);
     }
     return of(data);
   }
