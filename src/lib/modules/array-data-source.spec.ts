@@ -126,6 +126,112 @@ describe('ArrayDataSource', () => {
       done();
     });
   });
+
+  test('should be able to filter records by "eq" match of number', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'number',
+        field: 'weight',
+        value: 85,
+        match: 'eq'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(1);
+      expect(data[0].weight).toBe(85);
+      done();
+    });
+  });
+
+  test('should be able to filter records by "lt" match of number', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'number',
+        field: 'price',
+        value: 0.70,
+        match: 'lt'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(3);
+      data.forEach(record => {
+        expect(record.price < 0.70).toBeTruthy();
+      })
+      done();
+    });
+  });
+
+  test('should be able to filter records by "le" match of number', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'number',
+        field: 'price',
+        value: 0.70,
+        match: 'le'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(6);
+      data.forEach(record => {
+        expect(record.price <= 0.70).toBeTruthy();
+      });
+      done();
+    });
+  });
+
+  test('should be able to filter records by "gt" match of number', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'number',
+        field: 'price',
+        value: 1.00,
+        match: 'gt'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(1);
+      data.forEach(record => {
+        expect(record.price > 1.00).toBeTruthy();
+      });
+      done();
+    });
+  });
+
+  test('should be able to filter records by "ge" match of number', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'number',
+        field: 'price',
+        value: 1.00,
+        match: 'ge'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(3);
+      data.forEach(record => {
+        expect(record.price >= 1.00).toBeTruthy();
+      });
+      done();
+    });
+  });
+
+  test('should be able to filter records by "ne" match of number', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'number',
+        field: 'price',
+        value: 1.00,
+        match: 'ne'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(7);
+      data.forEach(record => {
+        expect(record.price !== 1.00).toBeTruthy();
+      });
+      done();
+    });
+  });
 });
 
 export const DONUTS: Donut[] = [{

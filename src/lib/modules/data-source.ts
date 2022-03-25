@@ -5,16 +5,23 @@ import type { Observable } from "rxjs";
 export type Sort = {
   field: string;
   dir: 'asc' | 'desc';
-}
+};
 
 export type StringFilter = {
   type: 'string';
   field: string;
   value: string;
   match: 'exact' | 'contains'
-}
+};
 
-export type Filter = StringFilter;
+export type NumberFilter = {
+  type: 'number';
+  field: string;
+  value: number;
+  match: 'eq' | 'lt' | 'le' | 'gt' | 'ge' | 'ne';
+};
+
+export type Filter = StringFilter | NumberFilter;
 
 export type DataQuery = {
   keyword?: string;

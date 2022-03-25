@@ -1,5 +1,5 @@
 import { Observable, of } from "rxjs";
-import { DataQuery, DataSource, Filter } from "./data-source";
+import { DataQuery, DataSource, Filter, NumberFilter, StringFilter } from "./data-source";
 
 export class ArrayDataSource<T> extends DataSource<T> {
   data: T[];
@@ -53,13 +53,53 @@ export class ArrayDataSource<T> extends DataSource<T> {
   }
 
   _getFilterFunction(filter: Filter): (record: T) => boolean {
+    if (filter.type === 'number') {
+      return this._getNumberFilterFunction(filter);
+    } else if (filter.type === 'string') {
+      return this._getStringFilterFunction(filter);
+    } else {
+      return function(record: T): boolean {
+        return true;
+      }
+    }
+  }
+
+  _getStringFilterFunction(filter: StringFilter): (record: T) => boolean {
     if (filter.match === 'exact') {
-      return function(record:T) {
+      return function(record:T): boolean {
         return record[filter.field] === filter.value;
       }
     }
-    return function(record:T) {
+    return function(record:T): boolean {
       return record[filter.field].indexOf(filter.value) > -1;
+    }
+  }
+
+  _getNumberFilterFunction(filter: NumberFilter): (record: T) => boolean {
+    if (filter.match === 'lt') {
+      return function(record: T): boolean {
+        return record[filter.field] < filter.value;
+      }
+    } else if (filter.match === 'le') {
+      return function(record: T): boolean {
+        return record[filter.field] <= filter.value;
+      }
+    } else if (filter.match === 'gt') {
+      return function(record: T): boolean {
+        return record[filter.field] > filter.value;
+      }
+    } else if (filter.match === 'ge') {
+      return function(record: T): boolean {
+        return record[filter.field] >= filter.value;
+      }
+    } else if (filter.match === 'ne') {
+      return function(record: T): boolean {
+        return record[filter.field] !== filter.value;
+      }
+    } else {
+      return function(record: T):boolean {
+        return record[filter.field] === filter.value;
+      }
     }
   }
 
