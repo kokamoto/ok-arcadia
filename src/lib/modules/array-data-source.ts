@@ -1,5 +1,5 @@
 import { Observable, of } from "rxjs";
-import { DataQuery, DataSource } from "./data-source";
+import { DataQuery, DataSource, Filter } from "./data-source";
 
 export class ArrayDataSource<T> extends DataSource<T> {
   data: T[];
@@ -14,12 +14,13 @@ export class ArrayDataSource<T> extends DataSource<T> {
     if (!query) {
       return of(data);
     }
+    if (query.filterBy) {
+      data = this._filter(data, query);
+    }
     if (query.sortBy) {
       data = this._sort(data, query);
     }
     if (query.top || query.skip) {
-      const start = query.skip || 0;
-      const end = (query.top) ? start + query.top : data.length;
       data = this._page(data, query);
     }
     return of(data);
@@ -40,6 +41,26 @@ export class ArrayDataSource<T> extends DataSource<T> {
       });
     }
     return data;
+  }
+
+  _filter(data: T[], query: DataQuery): T[] {
+    if (query.filterBy) {
+      const filter = query.filterBy[0];
+      const match = this._getFilterFunction(filter);
+      return data.filter(match);
+    }
+    return data;
+  }
+
+  _getFilterFunction(filter: Filter): (record: T) => boolean {
+    if (filter.match === 'exact') {
+      return function(record:T) {
+        return record[filter.field] === filter.value;
+      }
+    }
+    return function(record:T) {
+      return record[filter.field].indexOf(filter.value) > -1;
+    }
   }
 
   _page(data: T[], query: DataQuery): T[] {

@@ -1,33 +1,32 @@
 import { writable, derived } from "svelte/store"
 import type { Readable, Writable } from "svelte/store";
+import type { Observable } from "rxjs";
 
 export type Sort = {
   field: string;
   dir: 'asc' | 'desc';
 }
 
-export type SimpleFilter = {
+export type StringFilter = {
+  type: 'string';
   field: string;
   value: string;
+  match: 'exact' | 'contains'
 }
 
-export type Filter = SimpleFilter;
+export type Filter = StringFilter;
 
 export type DataQuery = {
   keyword?: string;
   sortBy?: Sort;
+  filterBy?: Filter[],
   top?: number;
   skip?: number;
 };
 
-export type DataSourceState = {
-  keyword: string;
-  sortBy: Sort;
-  filterBy: Filter[];
-};
 
 export abstract class DataSource<T> {
-  abstract fetchData(query?: DataQuery): void;
+  abstract fetchData(query?: DataQuery): Observable<T[]>;
 }
 
 export class DataSourceManager<T> {
@@ -37,9 +36,20 @@ export class DataSourceManager<T> {
     this.apiData = writable([]);
   };
 
+  /**
+   * Initiate fetch from data source using current query state.
+   */
   fetch(): void {
 
-  };
+  }
+
+  /**
+   * Set query state and trigger new fetch of data.
+   * @param query 
+   */
+  setQuery(query: DataQuery): void {
+
+  }
 
   getStore(): Readable<T[]> {
     return derived(this.apiData, ($apiData) => {

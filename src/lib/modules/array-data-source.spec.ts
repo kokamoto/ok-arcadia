@@ -30,7 +30,7 @@ describe('ArrayDataSource', () => {
       sortBy: { field: 'name', dir: 'asc'}
     };
     source.fetchData(query).subscribe((data: Donut[]) => {
-      expect(data[0].name).toBe('Birthday Party');
+      expect(data[0].name).toBe('Apple Fritter');
       done();
     });
   });
@@ -92,6 +92,40 @@ describe('ArrayDataSource', () => {
       done();
     });
   });
+
+  test('should be able to filter records by "exact" match of string', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'string',
+        field: 'name',
+        value: 'Good Old Chocolate',
+        match: 'exact'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(1);
+      expect(data[0].name).toBe('Good Old Chocolate');
+      done();
+    });
+  });
+  
+  test('should be able to filter records by "contains" match of string', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'string',
+        field: 'name',
+        value: 'Chocolate',
+        match: 'contains'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(3);
+      expect(data[0].name).toBe('Good Old Chocolate');
+      expect(data[1].name).toBe('Chocolate Party');
+      expect(data[2].name).toBe('Big Chocolate Party');
+      done();
+    });
+  });
 });
 
 export const DONUTS: Donut[] = [{
@@ -149,5 +183,21 @@ export const DONUTS: Donut[] = [{
   price: 0.70,
   weight: 75,
   glaze: 'maple',
+  hasSprinkles: false
+}, {
+  id: '008',
+  name: 'Big Chocolate Party',
+  type: 'cake',
+  price: 1.20,
+  weight: 180,
+  glaze: 'chocolate',
+  hasSprinkles: true
+}, {
+  id: '009',
+  name: 'Apple Fritter',
+  type: 'fritter',
+  price: 1.00,
+  weight: 140,
+  glaze: 'vanilla',
   hasSprinkles: false
 }];
