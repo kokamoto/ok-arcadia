@@ -27,29 +27,23 @@ export class ArrayDataSource<T> extends DataSource<T> {
   }
 
   _sort(data: T[], query: DataQuery): T[] {
-    if (query.sortBy) {
-      const field: string = query.sortBy.field;
-      const dir: number = (query.sortBy.dir === 'desc') ? -1 : 1;
-      return data.sort((a: T, b: T) => {
-        if (a[field] < b[field]) {
-          return -1 * dir;
-        }
-        if (a[field] > b[field]) {
-          return 1 * dir;
-        }
-        return 0;
-      });
-    }
-    return data;
+    const field: string = query.sortBy.field;
+    const dir: number = (query.sortBy.dir === 'desc') ? -1 : 1;
+    return data.sort((a: T, b: T) => {
+      if (a[field] < b[field]) {
+        return -1 * dir;
+      }
+      if (a[field] > b[field]) {
+        return 1 * dir;
+      }
+      return 0;
+    });
   }
 
   _filter(data: T[], query: DataQuery): T[] {
-    if (query.filterBy) {
-      const filter = query.filterBy[0];
-      const match = this._getFilterFunction(filter);
-      return data.filter(match);
-    }
-    return data;
+    const filter = query.filterBy[0];
+    const match = this._getFilterFunction(filter);
+    return data.filter(match);
   }
 
   _getFilterFunction(filter: Filter): (record: T) => boolean {
@@ -104,11 +98,8 @@ export class ArrayDataSource<T> extends DataSource<T> {
   }
 
   _page(data: T[], query: DataQuery): T[] {
-    if (query.top || query.skip) {
-      const start = query.skip || 0;
-      const end = (query.top) ? start + query.top : data.length;
-      return data.slice(start, end);
-    }
-    return data;
+    const start = query.skip || 0;
+    const end = (query.top) ? start + query.top : data.length;
+    return data.slice(start, end);
   }
 }
