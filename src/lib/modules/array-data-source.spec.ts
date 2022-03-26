@@ -232,6 +232,28 @@ describe('ArrayDataSource', () => {
       done();
     });
   });
+
+  test('should be able to filter records using multiple filters', (done) => {
+    const query: DataQuery = {
+      filterBy: [{
+        type: 'string',
+        field: 'name',
+        value: 'Chocolate',
+        match: 'contains'
+      }, {
+        type: 'number',
+        field: 'price',
+        value: 0.70,
+        match: 'le'
+      }]
+    };
+    source.fetchData(query).subscribe((data: Donut[]) => {
+      expect(data.length).toBe(2);
+      expect(data[0].name).toBe('Good Old Chocolate');
+      expect(data[1].name).toBe('Chocolate Party');
+      done();
+    });
+  });
 });
 
 export const DONUTS: Donut[] = [{

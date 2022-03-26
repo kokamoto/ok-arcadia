@@ -41,9 +41,20 @@ export class ArrayDataSource<T> extends DataSource<T> {
   }
 
   _filter(data: T[], query: DataQuery): T[] {
-    const filter = query.filterBy[0];
-    const match = this._getFilterFunction(filter);
+    const match = this._composeFilterFunction(query.filterBy);
     return data.filter(match);
+  }
+
+  _composeFilterFunction(filters: Filter[]): (record: T) => boolean {
+    const filter = filters.pop();
+    const filterFuncA = this._getFilterFunction(filter);
+    if (filters.length === 0) {
+      return filterFuncA;
+    }
+    const filterFuncB = this._composeFilterFunction(filters);
+    return  function(record: T): boolean {
+      return filterFuncA(record) && filterFuncB(record);
+    }
   }
 
   _getFilterFunction(filter: Filter): (record: T) => boolean {
