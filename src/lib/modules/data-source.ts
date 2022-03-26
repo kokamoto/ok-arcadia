@@ -38,24 +38,20 @@ export abstract class DataSource<T> {
 
 export class DataSourceManager<T> {
   apiData: Writable<T[]>;
+  source: DataSource<T>
 
-  constructor() {
+  constructor(source?: DataSource<T>) {
     this.apiData = writable([]);
+    this.source = source;
   };
 
   /**
    * Initiate fetch from data source using current query state.
    */
   fetch(): void {
-
-  }
-
-  /**
-   * Set query state and trigger new fetch of data.
-   * @param query 
-   */
-  setQuery(query: DataQuery): void {
-
+    this.source.fetchData().subscribe((data:T[]) => {
+      this.apiData.set(data);
+    });
   }
 
   getStore(): Readable<T[]> {
