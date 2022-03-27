@@ -1,7 +1,7 @@
 import {
+  DataQuery,
   DataSource,
-  DataSourceManager,
-  generateDataSourceManager
+  DataSourceManager
 } from "./data-source";
 import { Donut, DONUTS } from "./array-data-source.spec";
 import { ArrayDataSource } from "./array-data-source";
@@ -20,6 +20,20 @@ describe('DataSourceManager', () => {
     manager.fetch();
     store.subscribe(data => {
       expect(data.length).toBe(DONUTS.length);
+      done();
+    });
+  });
+
+
+  test('should be able to fetch records from a DataSource using DataQuery', (done) => {
+    const manager:DataSourceManager<Donut> = new DataSourceManager<Donut>(source);
+    const store: Readable<Donut[]> = manager.getStore();
+    const query: DataQuery = {
+      top: 5
+    }
+    manager.fetch(query);
+    store.subscribe(data => {
+      expect(data.length).toBe(5);
       done();
     });
   });

@@ -48,8 +48,8 @@ export class DataSourceManager<T> {
   /**
    * Initiate fetch from data source using current query state.
    */
-  fetch(): void {
-    this.source.fetchData().subscribe((data:T[]) => {
+  fetch(query?: DataQuery): void {
+    this.source.fetchData(query).subscribe((data:T[]) => {
       this.apiData.set(data);
     });
   }
@@ -59,9 +59,4 @@ export class DataSourceManager<T> {
       return $apiData as T[];
     });
   }
-}
-
-
-export function generateDataSourceManager<T>(): DataSourceManager<T> {
-  return new DataSourceManager<T>();
 }
