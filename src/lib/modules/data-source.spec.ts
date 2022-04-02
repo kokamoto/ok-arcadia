@@ -24,7 +24,6 @@ describe('DataSourceManager', () => {
     });
   });
 
-
   test('should be able to fetch records from a DataSource using DataQuery', (done) => {
     const manager:DataSourceManager<Donut> = new DataSourceManager<Donut>(source);
     const store: Readable<Donut[]> = manager.getStore();
