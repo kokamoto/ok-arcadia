@@ -56,10 +56,6 @@
       "ts",
       "svelte"
     ],
-    "moduleNameMapper": {
-      "$lib": "<rootDir>/src/lib",
-      "$lib/(.*)": "<rootDir>/src/lib/$1"
-    },
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
     ]

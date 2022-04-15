@@ -4,15 +4,25 @@
 
 <script lang="ts">
 	import RankingListItem from '../../../lib/components/app/dojang/RankingListItem.svelte';
-	import { CompetitorRank, DataSourceManager } from './store';
-	import type { Readable } from "svelte/store";
+	import { CompetitorRank, generateCompetitorDataSourceManager } from './store';
+	import { readable, Readable } from "svelte/store";
   import { onMount } from 'svelte';
+  import type { DataSourceManager } from '$lib/modules/data-source';
 
-	const manager:DataSourceManager<CompetitorRank> = new DataSourceManager<CompetitorRank>();
-	const competitors:Readable<CompetitorRank[]> = manager.getStore();
+	let manager:DataSourceManager<CompetitorRank>;
+	let competitors: Readable<CompetitorRank[]> = readable([]);
 
 	onMount(async () => {
-		manager.fetch();
+    await generateCompetitorDataSourceManager({
+      sourceUrl: '/data/test_recognized.json',
+      type: 'recognized',
+      gender: 'Female',
+      division: 'Cadet'
+    }).subscribe(m => {
+      manager = m;
+      competitors = m.getStore();
+		  manager.fetch();
+    });
 	});
 	
 </script>
