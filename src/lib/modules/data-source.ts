@@ -36,19 +36,29 @@ export abstract class DataSource<T> {
   abstract fetchData(query?: DataQuery): Observable<T[]>;
 }
 
+export type DataSourceManagerParams<T> = {
+  source: DataSource<T>,
+  query?: DataQuery
+}
+
 export class DataSourceManager<T> {
   apiData: Writable<T[]>;
-  source: DataSource<T>
+  source: DataSource<T>;
+  savedQuery: DataQuery = {};
 
-  constructor(source?: DataSource<T>) {
+  constructor(params: DataSourceManagerParams<T>) {
     this.apiData = writable([]);
-    this.source = source;
+    this.source = params.source;
+    if (params.query) {
+      this.savedQuery = params.query;
+    }
   };
 
   /**
    * Initiate fetch from data source using current query state.
    */
   fetch(query?: DataQuery): void {
+    query = query || this.savedQuery;
     this.source.fetchData(query).subscribe((data:T[]) => {
       this.apiData.set(data);
     });

@@ -1,5 +1,6 @@
 import { Observable, of } from "rxjs";
-import { DataQuery, DataSource, Filter, NumberFilter, StringFilter } from "./data-source";
+import { DataSource } from "./data-source";
+import type { DataQuery, Filter, NumberFilter, StringFilter } from "./data-source";
 
 export class ArrayDataSource<T> extends DataSource<T> {
   data: T[];
