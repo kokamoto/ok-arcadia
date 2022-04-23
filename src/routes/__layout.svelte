@@ -1,5 +1,5 @@
 <header>
-  <h1><a href="/">OK-Arcadia!</a></h1>
+  <h1><a href="/">OK-Arcadia</a></h1>
 </header>
 <div class="content">
   <slot></slot>
