@@ -57,9 +57,9 @@
 
 <section class="hero container">
   <div class="hero-body">
-    <p class="title">
-      Welcome to OK Arcadia!
-    </p>
+    <h1 class="title">
+      <span class="pre">Welcome to </span><span class="core">OK-ARCADIA!</span>
+    </h1>
   </div>
 </section>
 
@@ -87,6 +87,28 @@
 <style lang="scss">
   $border-radius: 5px;
 
+  .hero {
+    height: 10rem;
+    text-align: center;
+    .title {
+      height: 10rem;
+      padding-top: 2rem;
+      span {
+        display: block;
+      }
+      .pre {
+        font-family: 'Dancing Script', serif;
+        font-size: 2rem;
+        color: red;
+      }
+      .core {
+        font-family: Teko, sans-serif;
+        font-size: 4rem;
+        line-height: 3rem;
+      }
+    }
+  }
+
   section {
     > h2 {
       font-size: 1.2rem;
@@ -107,6 +129,7 @@
       border-radius: $border-radius;
       min-width: 15rem;
       h1 {
+        font-family: Teko, sans-serif;
         font-size: 1.4rem;
         padding: 0.75rem;
         color: #fff;
