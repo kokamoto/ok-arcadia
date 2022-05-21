@@ -3,7 +3,7 @@
     <h1><a href="/">OK-ARCADIA</a></h1>
   </div>
 </header>
-<div class="content">
+<div class="content container">
   <slot></slot>
 </div>
 <footer></footer>
@@ -20,5 +20,8 @@
       padding: 0.5rem 0;
       font-family: Teko, sans-serif;
     }
+  }
+  .content {
+    position: relative;
   }
 </style>
