@@ -28,7 +28,7 @@
   }, {
     title: `The VISITOR'S CENTER`,
     description: 'Get information here.',
-    url: '/about',
+    url: '/visitors-center',
     themeClass: 'visitors-center',
     rank: 4
   }];
