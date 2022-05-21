@@ -16,11 +16,9 @@
     font-family: Teko, sans-serif;
     height: $size;
     width: $size;
-    border: solid $border-size rgb(51, 51, 51);
+    border: solid $border-size;
     border-radius: 25px;
-    background-color: yellow;
     font-size: 2.7rem;
-    color: #333;
     text-align: center;
     line-height: $size;
   }
