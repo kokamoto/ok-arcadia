@@ -38,3 +38,16 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment.
+
+
+# Bookmarks
+
+## Design
+
+### Coolors
+Tool for choosing a color pallet.
+* https://coolors.co/14110f-ad870b-5c3343-59595f-0f7173
+
+### Hex to RGB Color Converter
+Convert color in hex to rgb value.
+* https://www.rapidtables.com/convert/color/hex-to-rgb.html
