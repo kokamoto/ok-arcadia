@@ -143,13 +143,16 @@
         color: #333;
       }
       &.lab h1 {
-        background-color: rgb(3, 101, 3);
+        background-color: var(--lab-primary-color);
       }
       &.dojang h1 {
-        background-color: rgb(3, 41, 156);
+        background-color: var(--dojang-primary-color);
       }
       &.kitchen h1 {
-        background-color: rgb(153, 85, 2);
+        background-color: var(--kitchen-primary-color);
+      }
+      &.visitors-center h1 {
+        background-color: var(--visitors-center-primary-color);
       }
     }
   }
