@@ -1,4 +1,5 @@
 @import "./reset.css";
+@import "./variables.css";
 
 body {
   font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif
@@ -8,4 +9,15 @@ body {
   max-width: 75rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.top-nav {
+  display: block;
+  position: absolute;
+  top: -25px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 52px;
 }

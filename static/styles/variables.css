@@ -1,0 +1,22 @@
+
+:root {
+  /* The Lab */
+  --lab-primary-color: rgb(3, 101, 3);
+  --lab-secondary-color: rgb(3, 101, 3);
+  --lab-background-color: rgb(252, 251, 238);
+
+  /* The Dojang */
+  --dojang-primary-color: rgb(3, 41, 156);
+  --dojang-secondary-color: rgb(201, 0, 0);
+  --dojang-background-color: rgb(255, 255, 255);
+
+  /* The Kitchen */
+  --kitchen-primary-color: rgb(92, 51, 67);
+  --kitchen-secondary-color: rgb(173, 135, 11);
+  --kitchen-background-color: rgb(243, 243, 244);
+
+  /* The Visitor's Center */
+  --visitors-center-primary-color: rgb(89, 89, 89);
+  --visitors-center-secondary-color: rgb(89, 89, 89);
+  --visitors-center-background-color: rgb(255, 255, 255);
+}
