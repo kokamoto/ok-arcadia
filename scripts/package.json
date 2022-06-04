@@ -1,0 +1,14 @@
+{
+  "name": "ok-arcadia-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for OK Arcadia",
+  "main": "generate-ranking-data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^6.0.0-beta.0"
+  }
+}
