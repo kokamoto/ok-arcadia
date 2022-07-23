@@ -1,32 +1,21 @@
 import { ApolloServer, gql } from 'apollo-server';
+import merge from 'lodash/merge.js';
+import recipeTypeDefs from './typeDefs/recipeTypeDefs.js';
+import recipeResolvers from './resolvers/recipeResolvers.js';
 
-const typeDefs = gql`
-  type Recipe {
-    id: ID!
-    title: String!
-    description: String
-  }
-
-  type Query {
-    recipes: [Recipe]
-  }
+const baseTypeDefs = gql`
+  type Query
 `;
 
-const recipes = [{
-  id: '001',
-  title: 'Gluten-free Chocolate Chip Cookies',
-  description: 'Warm gluten-free chocolate chip cookies are yummy.'
-}, {
-  id: '002',
-  title: 'Chicken Soup',
-  description: 'Soup for your soul.'
-}];
+const typeDefs = [
+  baseTypeDefs,
+  recipeTypeDefs
+];
 
-const resolvers = {
-  Query: {
-    recipes: () => recipes,
-  }
-};
+const resolvers = merge(
+  {},
+  recipeResolvers
+);
 
 const server = new ApolloServer({
   typeDefs,
