@@ -11,5 +11,8 @@ const recipes = [{
 export default {
   Query: {
     recipes: () => recipes,
+    recipe(parent, args, context, info) {
+      return recipes.find(recipe => recipe.id === args.id)
+    }
   }
 };

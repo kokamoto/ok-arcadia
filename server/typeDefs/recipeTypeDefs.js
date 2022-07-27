@@ -8,6 +8,7 @@ export default gql`
   }
 
   extend type Query {
-    recipes: [Recipe]
+    recipes: [Recipe],
+    recipe(id: ID!): Recipe
   }
 `;
